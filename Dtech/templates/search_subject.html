@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Subjects</title>
+    <style>
+        /* ปรับปรุงการแสดงผลให้ดีขึ้น */
+        .search-results {
+            margin-top: 20px;
+        }
+        .no-results {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Search Subjects</h1>
+    
+    <!-- ฟอร์มค้นหาที่ส่งคำค้นหา -->
+    <form method="get" action="{% url 'search_subject' %}">
+        <input type="text" name="q" value="{{ query }}" placeholder="Search for subjects" id="searchInput">
+        <button type="submit">Search</button>
+    </form>
+    <h1>class list have math, biology </h1>
+    <div class="search-results">
+        {% if query %}
+            <h2>Results for "{{ query }}":</h2>
+            {% if subjects %}
+                <ul>
+                    {% for subject in subjects %}
+                        <li>{{ subject.name }} ::: code_subject > ({{ subject.code }})</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="no-results">No subjects found matching your search criteria.</p>
+            {% endif %}
+        {% else %}
+            <p>Enter a search term to find subjects.</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>
